@@ -19,6 +19,8 @@ class sharedresource_plugin_etec extends sharedresource_plugin_base {
 
     var $context;
 
+    var $OTHERSOURCES = array();
+
     var $DEFAULTSOURCE = 'ETECv1.0';
 
     var $METADATATREE = array(
@@ -44,7 +46,7 @@ class sharedresource_plugin_etec extends sharedresource_plugin_base {
                     '1_2' => 'single',
                     '1_3' => 'single',
                     '1_4' => 'single',
-                    '1_5' => 'single',
+                    '1_5' => 'list',
                     ),
                 'checked' => array(
                     'system'  => 1,
@@ -863,6 +865,14 @@ class sharedresource_plugin_etec extends sharedresource_plugin_base {
         $element->type = "text";
         return $element;
     }
+    function getTaxumpath(){
+        $element = array();
+        $element['main']="Taxon Path";
+        $element['source'] = "9_2_1";
+        $element['id'] = "9_2_2_1";
+        $element['entry'] = "9_2_2_2";
+        return $element;
+    }
 
     function getClassification(){
         $element = "9";
@@ -875,7 +885,8 @@ class sharedresource_plugin_etec extends sharedresource_plugin_base {
     function setKeywords($keywords){
         global $DB;
         if (empty($this->entryid)) return; // do not affect metadata to unkown entries
-        $DB->delete_records_select('SELECT * FROM sharedresource_metadata WHERE namespace = "etec" AND element LIKE "1_5:0_%" AND entry_id = '.$this->entryid);
+        $DB->delete_records_select('sharedresource_metadata',
+                                   'namespace = "etec" AND element LIKE "1_5:0_%" AND entry_id = '.$this->entryid);
         if ($keywordsarr = explode(',', $keywords)){
             $i = 0;
             foreach($keywordsarr as $aword){

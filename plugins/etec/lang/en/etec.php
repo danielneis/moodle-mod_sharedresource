@@ -1,5 +1,6 @@
 <?php
 
+$string['description_etec'] = ' ';
 $string['plugin_etec'] = 'Local indexation (ETEC)';
 $string['sharedresource_plugin_hide_lomfr'] = 'Disable local indexer metadata (ETEC)';
 $string['contributor'] = 'Contributor';

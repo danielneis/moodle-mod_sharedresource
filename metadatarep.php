@@ -91,7 +91,7 @@
 			echo '<strong> - '.$fieldnum.' : '.$mtdstandard->METADATATREE[$fieldnum]['name'].'</strong><br/><br/>';
 		}
 		$fullurl = $CFG->wwwroot."/mod/sharedresource/metadataform.php?course={$course->id}&section={$section}&add=sharedresource&return={$return}&mode={$mode}&pluginchoice={$pluginchoice}&context={$sharingcontext}";
-		$OUTPUT->continue($fullurl, get_string('wrongform', 'sharedresource'), 15);
+		redirect($fullurl, get_string('wrongform', 'sharedresource'), 15);
 		echo '</center>';
 		echo $OUTPUT->footer();
 	} else {

@@ -10,6 +10,16 @@
  */
 global $SITE;
 
+$string['identifier'] = 'Identifier';
+$string['keyword'] = 'Keyword';
+$string['general'] = 'General';
+$string['etecformat'] = 'Etec format';
+$string['descriptionetec'] = 'Etec description';
+$string['entity'] = 'Entity';
+$string['eixotecnologico'] = 'Eixo tecnologico';
+$string['curso/tema'] = 'Curso/tema';
+$string['disciplina/ementa/componentecurricular'] = 'Disciplina/Ementa/Componente curricular';
+$string['unidade'] = 'Unidade';
 $string['DMdescription'] = 'Description of the metadata model :';
 $string['DMuse'] = 'Use of the metadata model :';
 $string['DMused'] = 'Model used';

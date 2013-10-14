@@ -60,6 +60,8 @@ $PAGE->set_url($url);
 echo $OUTPUT->header();
 
 $PAGE->requires->js('/mod/sharedresource/js/jquery-1.8.2.min.js');
+//echo "<script type='text/javascript' src='{$CFG->wwwroot}/mod/sharedresource/js/metadata.php'></script>";
+echo "<script type='text/javascript' src='{$CFG->wwwroot}/mod/sharedresource/js/metadata_yui.php'></script>";
 $PAGE->requires->js('/mod/sharedresource/js/metadata_yui.php');
 
 if(has_capability('mod/sharedresource:systemmetadata', $context)){
