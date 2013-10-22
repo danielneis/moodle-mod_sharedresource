@@ -786,6 +786,99 @@ class sharedresource_plugin_etec extends sharedresource_plugin_base {
         if (!empty($sharedresource_entry->description)){
             $this->setDescription($sharedresource_entry->description);
         }
+        $portal_url = "http://portaletec.homologacao.ufsc.br/portaletec-document-library-portlet/services/DocumentLibraryIntegrationService?wsdl";
+        $ws_param = array('encoding' => 'UTF-8');
+        $ws_client = new SoapClient($portal_url, $ws_param);
+
+        $meta = new stdclass();
+
+        $palavrasChave = array();
+        foreach ($sharedresource_entry->metadata_elements as $e) {
+
+            if (strstr($e->element, '1_5:')) {
+                $palavrasChave[] = $e->value;
+            } else {
+                switch ($e->element) {
+                    case '1_1:0_0':
+                        $meta->identificador = $e->value;
+                        break;
+
+                    case '1_2:0_0':
+                        $meta->titulo = $e->value;
+                        break;
+
+                    case '1_3:0_0':
+                        $meta->idioma =  $e->value;
+                        break;
+
+                    case '1_4:0_0':
+                        $meta->descricao =  $e->value;
+                        break;
+
+                    case '2_1:0_0':
+                        $meta->autor = $e->value;
+                        break;
+
+                    case '2_2:0_0':
+                        $meta->escola = $e->value;
+                        break;
+
+                    case '2_3:0_0':
+                        $meta->dataPublicacao = $e->value;
+                        break;
+
+                    case '3_1:0_0':
+                        $meta->formato = $e->value;
+                        break;
+
+                    case '3_2:0_0':
+                        $meta->tamanho = $e->value;
+                        break;
+
+                    case '3_3:0_0':
+                        $meta->url = $e->value;
+                        break;
+
+                    case '4_1:0_0':
+                        $meta->tipoRecurso =  $e->value;
+                        break;
+
+                    case '4_2:0_0':
+                        $meta->usuarioFinal = $e->value;
+                        break;
+
+                    case '5_1:0_0':
+                        $meta->condicoesUso = $e->value;
+                        break;
+
+                    case '6_1:0_0':
+                        $meta->eixoTecnologico = $e->value;
+                        break;
+
+                    case '6_2:0_0':
+                        $meta->curso = $e->value;
+                        $meta->tema = $e->value;
+                        break;
+
+                    case '6_3:0_0':
+                        $meta->disciplina = $e->value;
+                        $meta->ementa = $e->value;
+                        $meta->componenteCurricular = $e->value;
+                        break;
+
+                    case '6_4:0_0':
+                        $meta->unidade = $e->value;
+                        break;
+                }
+            }
+        }
+
+        $meta->palavrasChave = $palavrasChave;
+
+        $r = $ws_client->adicionarObjetoAprendizagem(array('objetoAprendizagem' => $meta));
+        if (!isset($r->resultadoInsercaoDocumento) || $r->resultadoInsercaoDocumento->erro) {
+            // problemas ao enviar. como tratar?
+        }
         return true;
     }
 
